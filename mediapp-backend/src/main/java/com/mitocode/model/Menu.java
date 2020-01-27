@@ -1,8 +1,13 @@
 package com.mitocode.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -10,7 +15,7 @@ import javax.persistence.Table;
 public class Menu {
 	
 	@Id
-	private Integer idExamen;
+	private Integer idMenu;
 	
 	@Column(name="icono", length = 20)
 	private String icono;
@@ -20,13 +25,18 @@ public class Menu {
 	
 	@Column(name="url", length = 50)
 	private String url;
+	
+	@ManyToMany
+	@JoinTable(name = "menu_rol", joinColumns = @JoinColumn(name = "id_menu", referencedColumnName = "idMenu"), inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "idRol"))
+	private List<Rol> roles;
+	
 
-	public Integer getIdExamen() {
-		return idExamen;
+	public Integer getIdMenu() {
+		return idMenu;
 	}
 
-	public void setIdExamen(Integer idExamen) {
-		this.idExamen = idExamen;
+	public void setIdMenu(Integer idMenu) {
+		this.idMenu = idMenu;
 	}
 
 	public String getIcono() {
@@ -51,6 +61,14 @@ public class Menu {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
 	}
 	
 }
